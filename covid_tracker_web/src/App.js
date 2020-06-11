@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Countries from './components/Countries.js';
 import NavBar from './components/NavBar.js';
+import CountryContent from './components/CountryContent.js';
 
 export class App extends Component {
   state = {
@@ -9,22 +10,26 @@ export class App extends Component {
       {
         id: 1,
         title: 'USA',
+        selected: true
       },
       {
         id: 2,
         title: 'Canada',
+        selected: false
       }
     ]
   }
   render() {
+    
     return (
       <div className="App">
         <NavBar />
         <div>
-          <div class='sidebar'>
+          <div className='sidebar'>
             <Countries countries={this.state.countries}/>
           </div>
-          <div class="content">
+          <div className="content">
+            <CountryContent countries={this.state.countries}/>
           </div>
         </div>
         

@@ -14,11 +14,27 @@ a {
   text-decoration: none;
 }
 
+.app {
+  display: flex;
+}
+
 .sidebar {
-  padding-bottom: 50px;
+  padding-bottom: 75px;
+  border-width: 1px;
+  border-color: #ddd;
+  border-right-style: solid;
   width: 200px;
   background-color: #ffffff;
   position: fixed;
   height: 100%;
   overflow: auto;
+}
+
+.sidebar :hover{
+  background-color: #ddd;
+  cursor:pointer;
+}
+.content {
+  margin-left: 210px;
+  padding: 20px;
 }

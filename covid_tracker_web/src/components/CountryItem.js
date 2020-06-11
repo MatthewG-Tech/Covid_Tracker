@@ -7,15 +7,22 @@ export class CountryItem extends Component {
     getStyle = () => {
         return {
             padding: '10px',
-            borderBottom: '1px #ccc dotted',
-            textAlign: 'center'
+            borderBottom: '1px #ddd solid',
+            textAlign: 'center',
         }
     }
 
+    handleClick(){
+        console.log(this.props.country.title);
+        this.props.country.selected = true;
+        console.log(this.props.country.selected);
+    }
+
     render() {
+        
         return (
-            <div style={this.getStyle()}>
-                <p>{ this.props.country.title }</p>
+            <div className='listItem' style={this.getStyle()} onClick={this.handleClick.bind(this)}>
+                <p >{ this.props.country.title }</p>
             </div>
         )
     }
