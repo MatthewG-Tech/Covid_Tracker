@@ -13,3 +13,12 @@ a {
   color: #333;
   text-decoration: none;
 }
+
+.sidebar {
+  padding-bottom: 50px;
+  width: 200px;
+  background-color: #ffffff;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}

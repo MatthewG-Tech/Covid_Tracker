@@ -7,7 +7,8 @@ export class CountryItem extends Component {
     getStyle = () => {
         return {
             padding: '10px',
-            borderBottom: '1px #ccc dotted'
+            borderBottom: '1px #ccc dotted',
+            textAlign: 'center'
         }
     }
 

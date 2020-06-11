@@ -13,94 +13,6 @@ export class App extends Component {
       {
         id: 2,
         title: 'Canada',
-      },
-      {
-        id: 1,
-        title: 'USAc',
-      },
-      {
-        id: 2,
-        title: 'Canadac',
-      },
-      {
-        id: 1,
-        title: 'USA',
-      },
-      {
-        id: 2,
-        title: 'Canada',
-      },
-      {
-        id: 1,
-        title: 'USA',
-      },
-      {
-        id: 2,
-        title: 'Canada',
-      },
-      {
-        id: 1,
-        title: 'USA',
-      },
-      {
-        id: 2,
-        title: 'Canada',
-      },
-      {
-        id: 1,
-        title: 'USA',
-      },
-      {
-        id: 2,
-        title: 'Canada',
-      },
-      {
-        id: 1,
-        title: 'USA',
-      },
-      {
-        id: 2,
-        title: 'Canada',
-      },
-      {
-        id: 1,
-        title: 'USA',
-      },
-      {
-        id: 2,
-        title: 'Canada',
-      },
-      {
-        id: 1,
-        title: 'USA',
-      },
-      {
-        id: 2,
-        title: 'Canada',
-      },
-      {
-        id: 1,
-        title: 'USA',
-      },
-      {
-        id: 2,
-        title: 'Canada',
-      },
-      {
-        id: 1,
-        title: 'USA',
-      },
-      {
-        id: 2,
-        title: 'Canada',
-      },
-      {
-        id: 1,
-        title: 'USA',
-      },
-      {
-        id: 2,
-        title: 'Canada',
       }
     ]
   }
@@ -108,8 +20,14 @@ export class App extends Component {
     return (
       <div className="App">
         <NavBar />
-        <Countries style={{width: '10%'}} countries={this.state.countries}/>
-        <Countries countries={this.state.countries}/>
+        <div>
+          <div class='sidebar'>
+            <Countries countries={this.state.countries}/>
+          </div>
+          <div class="content">
+          </div>
+        </div>
+        
       </div>
     );
   }

@@ -9,8 +9,7 @@ export class NavBar extends Component {
         return {
             position: 'sticky',
             top: '0',
-            paddingLeft: '10px',
-            paddingTob: '10px',
+            height: '50px',
             left: '10px',
             zIndex: '1',
             backgroundColor: 'white',
