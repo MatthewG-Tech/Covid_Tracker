@@ -21,11 +21,9 @@ export class CountryContent extends Component {
 
     render() {
         return(
-            <div>
-                <div>
+            <div className="contentHeader">
                     <h2 style={this.getLeftStyle()}>Country Data</h2>
                     <p style={this.getRightStyle()}>Last updated at: </p>
-                </div>
             </div>
         )
     }

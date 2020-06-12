@@ -9,7 +9,11 @@ export class Countries extends Component {
         let list = this.props.countries.map((country) => (
             <CountryItem key={country.id} country={country}/>
         ));
-        return list;
+        return (
+            <div  className='sidebar'>
+                {list}
+            </div>
+        );
     }
 }
 

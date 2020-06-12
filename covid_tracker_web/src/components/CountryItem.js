@@ -22,11 +22,17 @@ export class CountryItem extends Component {
             this.setState({
                 text: this.props.country.title + ' +'
             });
+            //this.props.country.setState({
+            //    selected: false
+            //});
         }else{
             this.props.country.selected = true;
             this.setState({
                 text: this.props.country.title + ' -'
             });
+            //this.props.country.setState({
+            //    selected: true
+            //});
         }
         console.log(this.state.text);
     }

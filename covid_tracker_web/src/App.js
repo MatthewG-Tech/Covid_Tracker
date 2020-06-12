@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Countries from './components/Countries.js';
 import NavBar from './components/NavBar.js';
-import CountryContent from './components/CountryContent.js';
+import CountryHeader from './components/CountryHeader.js';
+import CountryBody from './components/CountryBody.js';
 
 export class App extends Component {
   state = {
@@ -17,6 +18,7 @@ export class App extends Component {
         title: 'Canada',
         selected: false,
       }
+
     ]
   }
   render() {
@@ -25,17 +27,10 @@ export class App extends Component {
       <div className="App">
         <NavBar />
         <div>
-          <div className='sidebar'>
-            <Countries countries={this.state.countries}/>
-          </div>
-          <div className="contentHeader">
-            <CountryContent countries={this.state.countries}/>
-          </div>
-          <div className="contentBody">
-            <p>This content will be filled with a description.</p>
-          </div>
+          <Countries countries={this.state.countries}/>
+          <CountryHeader countries={this.state.countries}/>
+          <CountryBody />
         </div>
-        
       </div>
     );
   }
