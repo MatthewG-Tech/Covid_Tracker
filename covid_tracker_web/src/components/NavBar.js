@@ -16,7 +16,7 @@ export class NavBar extends Component {
     render() {
         
         return (
-        <h1 style={this.getTitleStyle()}><a href="_self">Covid Tracker 101</a></h1>
+            <h1 style={this.getTitleStyle()}><a href="_self">Covid Tracker 101</a></h1>
             
             
         )

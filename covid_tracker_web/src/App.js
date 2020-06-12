@@ -10,12 +10,12 @@ export class App extends Component {
       {
         id: 1,
         title: 'USA',
-        selected: true
+        selected: true,
       },
       {
         id: 2,
         title: 'Canada',
-        selected: false
+        selected: false,
       }
     ]
   }
@@ -28,8 +28,11 @@ export class App extends Component {
           <div className='sidebar'>
             <Countries countries={this.state.countries}/>
           </div>
-          <div className="content">
+          <div className="contentHeader">
             <CountryContent countries={this.state.countries}/>
+          </div>
+          <div className="contentBody">
+            <p>This content will be filled with a description.</p>
           </div>
         </div>
         

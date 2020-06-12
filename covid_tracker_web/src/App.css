@@ -34,7 +34,15 @@ a {
   background-color: #ddd;
   cursor:pointer;
 }
-.content {
-  margin-left: 210px;
+
+.contentHeader {
+  margin-left: 200px;
   padding: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.contentBody {
+  margin-left: 200px;
+  padding: 30px;
 }

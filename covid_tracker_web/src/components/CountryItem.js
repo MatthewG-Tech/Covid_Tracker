@@ -12,19 +12,39 @@ export class CountryItem extends Component {
         }
     }
 
+    state = {
+        text: this.props.country.title + ' +'
+    }
+
     handleClick(){
-        console.log(this.props.country.title);
-        this.props.country.selected = true;
-        console.log(this.props.country.selected);
+        if(this.props.country.selected){
+            this.props.country.selected = false;
+            this.setState({
+                text: this.props.country.title + ' +'
+            });
+        }else{
+            this.props.country.selected = true;
+            this.setState({
+                text: this.props.country.title + ' -'
+            });
+        }
+        console.log(this.state.text);
     }
 
     render() {
-        
-        return (
-            <div className='listItem' style={this.getStyle()} onClick={this.handleClick.bind(this)}>
-                <p >{ this.props.country.title }</p>
-            </div>
-        )
+        if(this.props.country.selected){
+            return (
+                <div className='listItem' style={this.getStyle()} onClick={this.handleClick.bind(this)}>
+                    <p >{this.props.country.title + ' -'}</p>
+                </div>
+            )
+        }else{
+            return (
+                <div className='listItem' style={this.getStyle()} onClick={this.handleClick.bind(this)}>
+                    <p >{this.props.country.title + ' +'}</p>
+                </div>
+            )
+        }
     }
 }
 
