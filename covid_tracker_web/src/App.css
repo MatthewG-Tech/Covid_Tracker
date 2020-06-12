@@ -33,7 +33,6 @@ a {
   }
 
   .contentBody {
-    background-color: green;
     margin-left: 50px;
     padding: 30px;
   }
@@ -43,6 +42,13 @@ a {
     padding: 20px;
     padding-left: 30px;
     padding-right: 30px;
+    width: 100%;
+  }
+  
+  #selectType{
+    visibility: hidden;
+    height: 0;
+    padding: 0;
   }
 }
 
@@ -71,9 +77,37 @@ a {
     padding-left: 30px;
     padding-right: 30px;
   }
+
+  .leftSide{
+    width: 50%;
+    float: left;
+    bottom: 0;
+  }
+
+  .rightSide{
+    /**width: 50%;**/
+    margin-left: 200px;
+    /**float: left;**/
+    text-align: right;
+    padding-top: 9px;
+  }
+
+  #expandSidebar{
+    visibility: hidden;
+    height: 0;
+    padding: 0;
+  }
 }
 
 .sidebar :hover{
   background-color: #ddd;
   cursor:pointer;
+}
+
+.sidebarItem{
+  padding: 10px;
+  border-width: 1px;
+  border-color: #ddd;
+  border-bottom-style: solid;
+  text-align: center;
 }

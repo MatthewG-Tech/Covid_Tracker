@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 //Component for each individual country
@@ -6,9 +6,9 @@ export class CountryItem extends Component {
     //Style for each county
     getStyle = () => {
         return {
-            padding: '10px',
-            borderBottom: '1px #ddd solid',
-            textAlign: 'center',
+            //padding: '10px',
+            //borderBottom: '1px #ddd solid',
+            //textAlign: 'center',
         }
     }
 
@@ -34,20 +34,20 @@ export class CountryItem extends Component {
             //    selected: true
             //});
         }
-        console.log(this.state.text);
+        
     }
 
     render() {
         if(this.props.country.selected){
             return (
-                <div className='listItem' style={this.getStyle()} onClick={this.handleClick.bind(this)}>
+                <div className='sidebarItem' style={this.getStyle()} onClick={this.handleClick.bind(this)}>
                     <p >{this.props.country.title + ' -'}</p>
                 </div>
             )
         }else{
             return (
-                <div className='listItem' style={this.getStyle()} onClick={this.handleClick.bind(this)}>
-                    <p >{this.props.country.title + ' +'}</p>
+                <div className='sidebarItem' style={this.getStyle()} onClick={this.handleClick.bind(this)}>
+                    <p >{this.state.text}</p>
                 </div>
             )
         }
