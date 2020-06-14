@@ -1,5 +1,16 @@
-  // Imports the Google Cloud client library
-  const {BigQuery} = require('@google-cloud/bigquery');
+// Imports the Google Cloud client library
+const {BigQuery} = require('@google-cloud/bigquery');
+const admin = require('firebase-admin');
+
+//Pathway to service key
+let serviceAccount = require('../secure_files/covid-tracker-101-fd0e87e6a712.json');
+
+//Initilize the database
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
+  
+let db = admin.firestore();
 
 // Creates a client
 const bigquery = new BigQuery();
@@ -12,4 +23,3 @@ if (!err) {
     console.log(rows);
 }
 });
-
