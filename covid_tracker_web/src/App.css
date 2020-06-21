@@ -21,6 +21,8 @@ a {
 /* Small Devices */
 @media only screen and (max-width : 768px) {
   .sidebar {
+    z-index: 1;
+    top: 75px;
     padding-bottom: 75px;
     border-width: 1px;
     border-color: #ddd;
@@ -33,11 +35,14 @@ a {
   }
 
   .contentBody {
+    top: 75px;
     margin-left: 50px;
     padding: 30px;
   }
 
   .contentHeader {
+    margin-top: 75px;
+    z-index: 2;
     margin-left: 50px;
     padding: 20px;
     padding-left: 30px;
@@ -55,6 +60,8 @@ a {
 /* Large Devices */
 @media only screen and (min-width : 768px) {
   .sidebar {
+    z-index: 1;
+    top: 75px;
     padding-bottom: 75px;
     border-width: 1px;
     border-color: #ddd;
@@ -67,11 +74,15 @@ a {
   }
 
   .contentBody {
+    top: 75px;
     margin-left: 200px;
+    
     padding: 30px;
+    padding-top: 0px;
   }
 
   .contentHeader {
+    top: 75px;
     margin-left: 200px;
     padding: 20px;
     padding-left: 30px;
@@ -110,4 +121,8 @@ a {
   border-color: #ddd;
   border-bottom-style: solid;
   text-align: center;
+}
+
+#selectedItem{
+  font-weight: bold;
 }

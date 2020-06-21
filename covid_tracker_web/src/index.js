@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import firebase from 'firebase';
+//import firebase from 'firebase';
 
-var firebaseConfig = {
+/**var firebaseConfig = {
   apiKey: "AIzaSyCr_liHpdn4FOYWVNUQheglOCwLfLnYrQE",
   authDomain: "covid-tracker-web-app.firebaseapp.com",
   databaseURL: "https://covid-tracker-web-app.firebaseio.com",
@@ -16,7 +16,7 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+firebase.analytics();**/
 ReactDOM.render(
   <React.StrictMode>
     <App />

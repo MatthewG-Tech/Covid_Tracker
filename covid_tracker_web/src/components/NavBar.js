@@ -3,11 +3,13 @@ import React, { Component, createRef } from 'react'
 export class NavBar extends Component {
     getTitleStyle = () => {
         return {
+            zIndex: '2',
             height: '75px',
             padding: '15px',
-            backgroundColor: 'white',
             width: '100%',
-            borderBottom: '1px #ddd solid'
+            borderBottom: '1px #ddd solid',
+            position: 'fixed',
+            backgroundColor: 'white'
         }
     }
 
