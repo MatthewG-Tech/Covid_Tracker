@@ -89,18 +89,20 @@ a {
     padding-right: 30px;
   }
 
+  .summary{
+    padding-top: 20px;
+  }
+
   .leftSide{
+    top:0;
     width: 50%;
     float: left;
     bottom: 0;
+    text-align: center;
   }
 
   .rightSide{
-    /**width: 50%;**/
-    margin-left: 200px;
-    /**float: left;**/
-    text-align: right;
-    padding-top: 9px;
+    text-align: center;
   }
 
   #expandSidebar{

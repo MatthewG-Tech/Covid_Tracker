@@ -15,9 +15,6 @@ export class CountryBody extends Component {
     }
 
     render() {
-        //let list = this.props.countries.map((country) => (
-            
-        //));
         let list = this.props.countries.map((country) => (
             <CountryBodyDetails key={country.id} country={country}/>
         ));

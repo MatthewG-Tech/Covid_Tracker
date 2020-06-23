@@ -25,6 +25,7 @@ export class App extends Component {
       countries: [
   
       ],
+      countryData : [],
       home: true
     }
   }
@@ -33,7 +34,7 @@ export class App extends Component {
     var db = firebase.firestore();
     var cont = []
     var i = 2;
-    db.collection('locations').where('type', '==', 'country').get().then((querySnapshot) => {
+    db.collection('locations').get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         var data = doc.data();
         data['countries'].forEach((country => {
@@ -55,8 +56,13 @@ export class App extends Component {
   setData=(data_from_child, home)=>{
     console.log(home)
     if(data_from_child !== undefined){
+      let tempArr = this.state.countryData;
+      data_from_child.forEach((country) => {
+        tempArr.push(country)
+      })
       this.setState({
         countries: data_from_child,
+        countryData: tempArr,
         home: home
       });
     }

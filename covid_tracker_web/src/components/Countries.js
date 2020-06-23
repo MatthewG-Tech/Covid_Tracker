@@ -12,11 +12,11 @@ export class Countries extends Component {
         }
     }
 
-    handelClick(){
+    handelExpanderClick(){
         console.log("expander");
     }
+
     setStateData=(data_from_child)=> {
-        console.log("test2")
         this.props.countries.forEach(country => {
             if(this.props.countries !== undefined){
                 if(country.title === data_from_child.title){
@@ -35,7 +35,7 @@ export class Countries extends Component {
             <CountryItem key={country.id} country={country} setStateData={this.setStateData.bind(this)}/>
         ));
         list.unshift(<div key={0} className='sidebarItem' id='selectType'><p>Select Type</p></div>)
-        list.unshift(<div key={1} className='sidebarItem' id='expandSidebar' onClick={this.handelClick.bind(this)}><p>Expand</p></div>)
+        list.unshift(<div key={1} className='sidebarItem' id='expandSidebar' onClick={this.handelExpanderClick.bind(this)}><p>Expand</p></div>)
         return (
             <div  className='sidebar'>
                 {list}
