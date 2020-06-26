@@ -11,15 +11,14 @@ export class CountryItem extends Component {
     }
 
     handleClick(){
-        console.log(this.props.country)
         const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
         if(this.props.country.selected){
             this.props.country.selected = false;
             this.setState({
                 text: this.props.country.title + ' +'
             });
-            this.props.setStateData(this.props.country)
-        }else if(this.props.country.cases === undefined){
+            this.props.setStateData({country: this.props.country})
+        }else{
             this.setState({
                 text: this.props.country.title + ' -'
             });
@@ -47,7 +46,7 @@ export class CountryItem extends Component {
                             let tempDate = new Date(date.getTime());
                             labels.push(monthNames[tempDate.getMonth()] + " " +tempDate.getDate());
                             totalCases = caseData;
-                            if(cases.length == 0){
+                            if(cases.length === 0){
                                 cases.push(caseData)
                             }else{
                                 var sum = caseData - data["_" + (prevDate.getMonth()+1) + "_" + (prevDate.getDate()) + "_" + prevDate.getFullYear().toString().substr(-2)];
@@ -76,7 +75,7 @@ export class CountryItem extends Component {
                             var deathData = data["_" + (date.getMonth()+1) + "_" + (date.getDate()) + "_" + date.getFullYear().toString().substr(-2)];
                             if(deathData !== undefined){
                                 totalDeaths = deathData;
-                                if(deaths.length == 0){
+                                if(deaths.length === 0){
                                     deaths.push(deathData)
                                 }else{
                                     var sum = deathData - data["_" + (prevDate.getMonth()+1) + "_" + (prevDate.getDate()) + "_" + prevDate.getFullYear().toString().substr(-2)]
@@ -102,16 +101,20 @@ export class CountryItem extends Component {
                     this.props.country.totalDeaths = totalDeaths
                     this.props.country.averageDailyDeaths = Math.floor(twoWeekAverageDeaths/14)
                     this.props.country.averageDailyCases = Math.floor(twoWeekAverageCases/14)
-                    this.props.setStateData(this.props.country)
-                    console.log(this.props.country)
+                    var caseData = {
+                        title: this.props.country.title,
+                        cases: cases,
+                        deaths: deaths,
+                        labels: labels,
+                        totalCases: totalCases,
+                        totalDeaths: totalDeaths,
+                        averageDailyCases: Math.floor(twoWeekAverageCases/14),
+                        averageDailyDeaths: Math.floor(twoWeekAverageDeaths/14),
+                    }
+                    this.props.setStateData({country: this.props.country, data: caseData})
                 })
             })
-            
-        }else{
-            this.props.country.selected = true;
-            this.props.setStateData(this.props.country)
         }
-        
     }
 
     render() {

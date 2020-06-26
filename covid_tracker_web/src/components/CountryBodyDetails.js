@@ -63,35 +63,7 @@ export class CountryBodyDetails extends Component {
             return(
                 <div>
                     <Line
-                        options={{responsive: true,
-                            scales: {
-                                xAxes: [{
-                                    stacked: true,
-                                    ticks: {
-                                        autoSkip: true,
-                                        autoSkipPadding: 50,
-                                        fontSize: 16,
-                                    },
-                                }],
-                                yAxes: [{
-                                    ticks: {
-                                        fontSize: 16,
-                                    },
-                                }]
-                            },
-                            legend: {
-                                display: true,
-                                labels: {
-                                    fontSize: 16,
-                                }
-                            },
-                            title: {
-                                display: true,
-                                text: this.props.country.title,
-                                fontStyle: 'bold',
-                                fontColor: 'black',
-                                fontSize: 23,
-                            }}}
+                        options={this.getOptions()}
                         data={{
                             labels: this.props.country.labels,
                             datasets: [

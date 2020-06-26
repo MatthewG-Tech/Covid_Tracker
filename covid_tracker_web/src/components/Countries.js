@@ -19,15 +19,16 @@ export class Countries extends Component {
     setStateData=(data_from_child)=> {
         this.props.countries.forEach(country => {
             if(this.props.countries !== undefined){
-                if(country.title === data_from_child.title){
-                    country.selected = data_from_child.selected
+                if(country.title === data_from_child.country.title){
+                    country.selected = data_from_child.country.selected
                 }else if(data_from_child.selected){
-                    country.selected = !data_from_child.selected
+                    country.selected = !data_from_child.country.selected
                 }
             }
         });
         if(this.props.countries !== undefined){
-            this.props.setData(this.props.countries, !data_from_child.selected)
+            //Need to add array for data
+            this.props.setData({countries: this.props.countries, home: !data_from_child.country.selected, countryName: data_from_child.country.title, data: data_from_child.data})
         }
     }
     render() {

@@ -128,3 +128,7 @@ a {
 #selectedItem{
   font-weight: bold;
 }
+
+.centerTitle{
+  text-align: center;
+}
