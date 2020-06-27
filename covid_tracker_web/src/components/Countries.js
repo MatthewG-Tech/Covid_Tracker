@@ -35,7 +35,6 @@ export class Countries extends Component {
         let list = this.props.countries.map((country) => (
             <CountryItem key={country.id} country={country} setStateData={this.setStateData.bind(this)}/>
         ));
-        list.unshift(<div key={0} className='sidebarItem' id='selectType'><p>Select Type</p></div>)
         list.unshift(<div key={1} className='sidebarItem' id='expandSidebar' onClick={this.handelExpanderClick.bind(this)}><p>Expand</p></div>)
         return (
             <div  className='sidebar'>

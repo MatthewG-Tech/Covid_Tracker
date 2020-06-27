@@ -127,7 +127,6 @@ export class CountryItem extends Component {
         }else{
             return (
                 <div className='sidebarItem' onClick={this.handleClick.bind(this)}>
-                    
                     <p >{this.props.country.title}</p>
                 </div>
             )

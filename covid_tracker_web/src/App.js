@@ -51,6 +51,18 @@ export class App extends Component {
         countries: cont
       })
     });
+    db.collection('total').get().then((querySnapshot) => {
+      var totalCases
+      var totalDeaths
+      querySnapshot.forEach((doc) => {
+        var data = doc.data();
+        totalCases = data['cases']
+        totalDeaths = data['deaths']
+      });
+      this.setState({
+        totals: {cases: totalCases, deaths: totalDeaths}
+      })
+    });
   }
 
   setData=(data_from_child)=>{
@@ -69,18 +81,16 @@ export class App extends Component {
           shadeDeaths: "rgba("+r1+","+g1+","+b1+",0.2)",
           lineDeaths: "rgba("+r1+","+g1+","+b1+",1)"
         }
-        console.log(data_from_child.data.color)
         tempArr.push(data_from_child.data)
       }else{
         let i = 0
         let index = i
         tempArr.forEach((country) => {
           if(country.title == data_from_child.countryName){
-            index = i
+            tempArr.splice(i, i+1)
           }
           i++
         })
-        tempArr.splice(index, index+1)
       } 
       this.setState({
         countries: data_from_child.countries,
@@ -94,11 +104,18 @@ export class App extends Component {
     return (
       <div className="App">
         <NavBar />
-        <div>
+        <div className="mainContent">
           <Countries countries={this.state.countries} setData={this.setData.bind(this)}/>
           <div style={ {top: '75px', paddingTop: '75px'} }>
             <CountryHeader />
-            <CountryBody countries={this.state.countries} home={this.state.home} countryData={this.state.countryData}/>
+            <CountryBody countries={this.state.countries} home={this.state.home} countryData={this.state.countryData} totals={this.state.totals}/>
+          </div>
+        </div>
+        <div className="needBiggerScreen">
+          <div className="contentBody">
+            <h3>Screen Size</h3>
+            <br />
+            <p>To access the content on this page, you need to expand your window if you are on a desktop or move your phone to the horizontal position. For the graphs to be displayed correctly, the screen size needs to increase.</p>
           </div>
         </div>
       </div>
