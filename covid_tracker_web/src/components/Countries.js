@@ -12,10 +12,7 @@ export class Countries extends Component {
         }
     }
 
-    handelExpanderClick(){
-        console.log("expander");
-    }
-
+    //Set state when data is changed in componnet
     setStateData=(data_from_child)=> {
         this.props.countries.forEach(country => {
             if(this.props.countries !== undefined){
@@ -27,15 +24,15 @@ export class Countries extends Component {
             }
         });
         if(this.props.countries !== undefined){
-            //Need to add array for data
             this.props.setData({countries: this.props.countries, home: !data_from_child.country.selected, countryName: data_from_child.country.title, data: data_from_child.data})
         }
     }
+
+    //Render out country items
     render() {
         let list = this.props.countries.map((country) => (
             <CountryItem key={country.id} country={country} setStateData={this.setStateData.bind(this)}/>
         ));
-        list.unshift(<div key={1} className='sidebarItem' id='expandSidebar' onClick={this.handelExpanderClick.bind(this)}><p>Expand</p></div>)
         return (
             <div  className='sidebar'>
                 {list}

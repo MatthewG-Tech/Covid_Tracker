@@ -1,24 +1,13 @@
 import React, { Component, createRef } from 'react'
 
 export class NavBar extends Component {
-    getTitleStyle = () => {
-        return {
-            zIndex: '2',
-            height: '75px',
-            padding: '15px',
-            width: '100%',
-            borderBottom: '1px #ddd solid',
-            position: 'fixed',
-            backgroundColor: 'white'
-        }
-    }
 
     contextRef = createRef()
 
+    //Render out nav bar
     render() {
-        
         return (
-            <h1 style={this.getTitleStyle()}><a href="_self">Covid Tracker 101</a></h1>
+            <h1 className="navTitle" ><a href="_self">Covid Tracker 101</a></h1>
         )
     }
 }

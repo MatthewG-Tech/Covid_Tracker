@@ -30,6 +30,7 @@ export class App extends Component {
     }
   }
 
+  //Get data once component is mounted
   componentDidMount() {
     var db = firebase.firestore();
     var cont = []
@@ -65,6 +66,7 @@ export class App extends Component {
     });
   }
 
+  //Used to set state when data is changed in child components
   setData=(data_from_child)=>{
     if(data_from_child !== undefined){
       let tempArr = this.state.countryData
@@ -100,6 +102,7 @@ export class App extends Component {
     }
   }
 
+  //Reder out app
   render() {
     return (
       <div className="App">

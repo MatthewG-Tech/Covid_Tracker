@@ -10,15 +10,18 @@ export class CountryItem extends Component {
         text: this.props.country.title + ' +'
     }
 
+    //On click get data
     handleClick(){
         const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
         if(this.props.country.selected){
+            //If item is being unselected do this
             this.props.country.selected = false;
             this.setState({
                 text: this.props.country.title + ' +'
             });
             this.props.setStateData({country: this.props.country})
         }else{
+            //Else first grab state data
             this.setState({
                 text: this.props.country.title + ' -'
             });
@@ -64,6 +67,7 @@ export class CountryItem extends Component {
                     }
                 })
             }).then(test => {
+                //Once cases are gatherd get deaths
                 db.collection('deaths').where('location', '==', this.props.country.title).get().then(function(querySnapshotDeaths) {
                     querySnapshotDeaths.forEach(function(doc){
                         data = doc.data();
@@ -93,10 +97,11 @@ export class CountryItem extends Component {
                         }
                     })
                 }).then(test2 => {
-                    this.props.country.selected = true;
-                    this.props.country.cases = cases//[33, 53, 85, 41, 44, 65];
-                    this.props.country.deaths = deaths//[33, 53, 85, 41, 44, 65];
-                    this.props.country.labels = labels//["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+                    //Once all data is gathered set the data
+                    this.props.country.selected = true
+                    this.props.country.cases = cases
+                    this.props.country.deaths = deaths
+                    this.props.country.labels = labels
                     this.props.country.totalCases = totalCases
                     this.props.country.totalDeaths = totalDeaths
                     this.props.country.averageDailyDeaths = Math.floor(twoWeekAverageDeaths/14)
@@ -117,6 +122,7 @@ export class CountryItem extends Component {
         }
     }
 
+    //Dependant on if item is selected render out diffrently
     render() {
         if(this.props.country.selected){
             return (
