@@ -35,10 +35,10 @@ export class App extends Component {
     var db = firebase.firestore();
     var cont = []
     var i = 2;
-    db.collection('locations').get().then((querySnapshot) => {
+    db.collection('locations').where('type', '==', 'states').get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         var data = doc.data();
-        data['countries'].forEach((country => {
+        data['states'].forEach((country => {
           cont.push({
             id:i,
             title: country,
@@ -57,8 +57,8 @@ export class App extends Component {
       var totalDeaths
       querySnapshot.forEach((doc) => {
         var data = doc.data();
-        totalCases = data['cases']
-        totalDeaths = data['deaths']
+        totalCases = data['totalCases']
+        totalDeaths = data['totalDeaths']
       });
       this.setState({
         totals: {cases: totalCases, deaths: totalDeaths}
@@ -86,9 +86,8 @@ export class App extends Component {
         tempArr.push(data_from_child.data)
       }else{
         let i = 0
-        let index = i
         tempArr.forEach((country) => {
-          if(country.title == data_from_child.countryName){
+          if(country.title === data_from_child.countryName){
             tempArr.splice(i, i+1)
           }
           i++
@@ -101,8 +100,7 @@ export class App extends Component {
       });
     }
   }
-
-  //Reder out app
+  
   render() {
     return (
       <div className="App">

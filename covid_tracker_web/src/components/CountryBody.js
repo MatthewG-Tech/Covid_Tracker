@@ -32,7 +32,8 @@ export class CountryBody extends Component {
     render() {
         //format all data
         if(this.props.countryData.length > 0){
-            let lineDatasets = []
+            let lineCaseDatasets = []
+            let lineDeathDatasets = []
             let summaryContent = []
             let i = 0
             let barLables = []
@@ -40,20 +41,20 @@ export class CountryBody extends Component {
             let barData = []
             let pieCaseData = [this.props.totals.cases]
             let pieCaseColor = ["grey"]
-            let pieCaseLabels = ["World"]
+            let pieCaseLabels = ["US"]
             let pieDeathData = [this.props.totals.deaths]
             let pieDeathColor = ["grey"]
-            let pieDeathLabels = ["World"]
+            let pieDeathLabels = ["US"]
             this.props.countryData.forEach((country) => {
                 country["key"] = i++
-                lineDatasets.push({
+                lineCaseDatasets.push({
                     label: country.title + " Daily Positive Cases",
                     data: country.cases,
                     fill: true,
                     backgroundColor: country.color.shadeCases,
                     borderColor: country.color.lineCases
                 })
-                lineDatasets.push({
+                lineDeathDatasets.push({
                     label: country.title + " Daily Deaths",
                     data: country.deaths,
                     fill: true,
@@ -70,24 +71,26 @@ export class CountryBody extends Component {
                     </div>
                 )
                 barLables.push(
-                    country.title + " Cases Per 100K"
+                    country.title + " Cases Per 10K"
                 )
                 barColors.push(
                     country.color.lineCases
                 )
                 barData.push(
-                    (country.totalCases/100000)
+                    (country.totalCases/10000)
                 )
                 barLables.push(
-                    country.title + " Deaths Per 100K"
+                    country.title + " Deaths Per 10K"
                 )
                 barColors.push(
                     country.color.lineDeaths
                 )
                 barData.push(
-                    (country.totalDeaths/100000)
+                    (country.totalDeaths/10000)
                 )
+                pieCaseData[0] = pieCaseData[0] - country.totalCases
                 pieCaseData.push(country.totalCases)
+                pieDeathData[0] = pieDeathData[0] - country.totalDeaths
                 pieDeathData.push(country.totalDeaths)
                 pieCaseLabels.push(country.title)
                 pieDeathLabels.push(country.title)
@@ -97,14 +100,15 @@ export class CountryBody extends Component {
             //Render out all components
             return(
                 <div className="contentBody">
-                    <LineChart labels={this.props.countryData[0].labels} datasets={lineDatasets}/>
+                    <LineChart labels={this.props.countryData[0].labels} datasets={lineCaseDatasets} title={"Case Data"}/>
+                    <LineChart labels={this.props.countryData[0].labels} datasets={lineDeathDatasets} title={"Death Data"}/>
                     {summaryContent}
                     <br /><hr /><br />
                     <BarChart labels={barLables} data={barData} colors={barColors}/>
                     <br /><hr /><br />
                     <div>
-                        <PieChart title="Cases Compared to the World" labels={pieCaseLabels} data={pieCaseData} color={pieCaseColor}/>
-                        <PieChart title="Deaths Compared to the World" labels={pieDeathLabels} data={pieDeathData} color={pieDeathColor}/>
+                        <PieChart title="Cases Compared to the US" labels={pieCaseLabels} data={pieCaseData} color={pieCaseColor}/>
+                        <PieChart title="Deaths Compared to the US" labels={pieDeathLabels} data={pieDeathData} color={pieDeathColor}/>
                         <br />
                     </div>
                     <br />

@@ -6,7 +6,7 @@ export class CountryContent extends Component {
     render() {
         return(
             <div className='contentHeader'>
-                    <h2>Country Data</h2>
+                    <h2>State Data</h2>
             </div>
         )
     }

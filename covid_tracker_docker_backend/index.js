@@ -1,6 +1,6 @@
 // Imports the Google Cloud client library
-const {BigQuery} = require('@google-cloud/bigquery');
 const admin = require('firebase-admin');
+const fetch = require('node-fetch');
 
 // Imports scheduler
 var schedule = require('node-schedule');
@@ -15,62 +15,113 @@ admin.initializeApp({
   
 let db = admin.firestore();
 
-// Set global date
-var date = new Date();
-var month = date.getMonth() + 1
-var day = date.getDate() - 1
+// Set state map
+let stateMap = new Map()
 
-// Add deaths to the data base
-function addDeaths(){
-    try{
-        // Get the Query
-        const bigquery = new BigQuery();
+stateMap.set("AL","Alabama")
+stateMap.set("AK", "Alaska")
+stateMap.set("AZ", "Arizona")
+stateMap.set("AR", "Arkansas")
+stateMap.set("CA", "California")
+stateMap.set("CO", "Colorado")
+stateMap.set("CT", "Connecticut")
+stateMap.set("DE", "Delaware")
+stateMap.set("FL", "Florida")
+stateMap.set("GA", "Georgia")
+stateMap.set("HI", "Hawaii") 
+stateMap.set("ID", "Idaho") 
+stateMap.set("IL", "Illinois")
+stateMap.set("IN", "Indiana")
+stateMap.set("IA", "Iowa")
+stateMap.set("KS", "Kansas")
+stateMap.set("KY", "Kentucky")
+stateMap.set("LA", "Louisiana")
+stateMap.set("ME", "Maine")
+stateMap.set("MD", "Maryland")
+stateMap.set("MA", "Massachusetts")
+stateMap.set("MI", "Michigan")
+stateMap.set("MN", "Minnesota")
+stateMap.set("MS", "Mississippi")
+stateMap.set("MO", "Missouri")
+stateMap.set("MT", "Montana")
+stateMap.set("NE", "Nebraska")
+stateMap.set("NV", "Nevada")
+stateMap.set("NH", "New Hampshire")
+stateMap.set("NM", "New Mexico")
+stateMap.set("NY", "New York")
+stateMap.set("NC", "North Carolina")
+stateMap.set("ND", "North Dakota")
+stateMap.set("OH", "Ohio")
+stateMap.set("OK", "Oklahoma")
+stateMap.set("OR", "Oregon")
+stateMap.set("PA", "Pennsylvania")
+stateMap.set("RI", "Rhode Island")
+stateMap.set("SC", "South Carolina")
+stateMap.set("SD", "South Dakota")
+stateMap.set("TN", "Tennessee")
+stateMap.set("UT", "Utah")
+stateMap.set("VT", "Vermont")
+stateMap.set("VA", "Virginia")
+stateMap.set("WV", "West Virginia")
+stateMap.set("WI", "Wisconsin")
+stateMap.set("WY", "Wyoming")
 
-        const query = 'SELECT ' + 'SUM(_' + month + '_' + day + '_20), ' + ' country_region FROM `bigquery-public-data.covid19_jhu_csse.deaths` group by country_region order by 1 DESC';
 
-        bigquery.query(query, function(err, rows) {
-            if (!err) {
-                // Go through and add data
-                for(let i = 0; i < rows.length; i++){
-                    let data = {}
-                    data['_' + month + '_' + day + '_20'] = rows[i]["f0_"]
-                    db.collection('deaths').doc(rows[i]['country_region']).update(data)
+function updateData(){
+    let url = "https://covidtracking.com/api/v1/states/current.json"
+    let settings = { method: "Get" };
+        let states = []
+    fetch(url, settings)
+        .then(res => res.json())
+        .then((json) => {
+            console.log("Get data")
+            let data = {}
+            json.forEach(stateItem => {
+                let deaths = stateItem['death']
+                if(deaths == null){
+                    deaths = 0
                 }
-            }
-            console.log(err)
-        });
-        console.log("Add deaths")
-    }catch(e){
-        console.error(e);
-    }
-}
-
-// Add cases
-function addCases(){
-    try{
-        // Get the Query
-        const bigquery = new BigQuery();
-
-        const query = 'SELECT ' + 'SUM(_' + month + '_' + day + '_20), ' + ' country_region FROM `bigquery-public-data.covid19_jhu_csse.confirmed_cases` group by country_region order by 1 DESC';
-
-        bigquery.query(query, function(err, rows) {
-            if (!err) {
-                // Go through and add data
-                for(let i = 0; i < rows.length; i++){
-                    let data = {}
-                    data['_' + month + '_' + day + '_20'] = rows[i]["f0_"]
-                    db.collection('cases').doc(rows[i]['country_region']).update(data)
+                data['_' + Math.floor((stateItem['date']/100)%100) + '_' + (stateItem['date']%100) + '_20_deaths'] = deaths
+                let cases = stateItem['positive']
+                if(cases == null){
+                    cases = 0
                 }
-            }
-            console.log(err)
+                data['_' + Math.floor((stateItem['date']/100)%100) + '_' + (stateItem['date']%100) + '_20_cases'] = cases
+                db.collection('states').doc(stateItem['state']).update(data)
+            });
+            
+            console.log("Data added")
         });
-        console.log("Add cases")
-    }catch(e){
-        console.error(e);
-    }
 }
-var deathsScheduler = schedule.scheduleJob('0 0 1 * * *', function(){
-    addDeaths();
-    addCases();
-    console.log("Seceduler ran");
+function setTotal(){
+    let url = "https://covidtracking.com/api/v1/us/current.json";
+    let settings = { method: "Get" };
+
+    let totalCases = 0
+    let totalDeaths = 0
+    fetch(url, settings)
+        .then(res => res.json())
+        .then((json) => {
+            console.log("Get total data")
+            let data = {}
+            json.forEach(stateItem => {
+                let deaths = stateItem['death']
+                if(deaths == null){
+                    deaths = 0
+                }
+                totalDeaths += deaths
+                let cases = stateItem['positive']
+                if(cases == null){
+                    cases = 0
+                }
+                totalCases += cases
+            });
+            db.collection('total').doc('states').update({totalDeaths: totalDeaths, totalCases: totalCases})
+            console.log("Total set")
+        });
+}
+var morningScheduler = schedule.scheduleJob('0 30 17 * * *', function(){
+    updateData();
+    setTotal();
+    console.log("Scheduler ran");
 });

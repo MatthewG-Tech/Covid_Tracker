@@ -35,7 +35,7 @@ export default class LineChart extends Component {
             },
             title: {
                 display: true,
-                text: "Country Data",
+                text: this.props.title,
                 fontStyle: 'bold',
                 fontColor: 'black',
                 fontSize: 23,
