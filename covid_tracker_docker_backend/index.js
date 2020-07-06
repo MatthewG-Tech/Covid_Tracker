@@ -70,7 +70,6 @@ stateMap.set("WY", "Wyoming")
 function updateData(){
     let url = "https://covidtracking.com/api/v1/states/current.json"
     let settings = { method: "Get" };
-        let states = []
     fetch(url, settings)
         .then(res => res.json())
         .then((json) => {
@@ -87,9 +86,16 @@ function updateData(){
                     cases = 0
                 }
                 data['_' + Math.floor((stateItem['date']/100)%100) + '_' + (stateItem['date']%100) + '_20_cases'] = cases
+                
+                let negative = stateItem['negative']
+                if(negative == null){
+                    negative = 0
+                }
+                data['_' + Math.floor((stateItem['date']/100)%100) + '_' + (stateItem['date']%100) + '_20_test'] = cases + negative
                 db.collection('states').doc(stateItem['state']).update(data)
+                
             });
-            
+            //db.collection('states').doc(state).update(data)
             console.log("Data added")
         });
 }
@@ -120,6 +126,8 @@ function setTotal(){
             console.log("Total set")
         });
 }
+updateData();
+setTotal();
 var morningScheduler = schedule.scheduleJob('0 30 17 * * *', function(){
     updateData();
     setTotal();
