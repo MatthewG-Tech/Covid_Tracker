@@ -93,7 +93,7 @@ function updateData(){
                 }
                 data['_' + Math.floor((stateItem['date']/100)%100) + '_' + (stateItem['date']%100) + '_20_test'] = cases + negative
                 db.collection('states').doc(stateItem['state']).update(data)
-                
+                console.log('_' + Math.floor((stateItem['date']/100)%100) + '_' + (stateItem['date']%100) + '_20_test')
             });
             //db.collection('states').doc(state).update(data)
             console.log("Data added")
@@ -128,7 +128,7 @@ function setTotal(){
 }
 updateData();
 setTotal();
-var morningScheduler = schedule.scheduleJob('0 30 17 * * *', function(){
+var morningScheduler = schedule.scheduleJob('0 0 * * * *', function(){
     updateData();
     setTotal();
     console.log("Scheduler ran");
